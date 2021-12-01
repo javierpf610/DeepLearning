@@ -22,30 +22,6 @@ public class NeuralNetwork {
 
     }
 
-    //Toma la capa de neuronas de input y las convierte en un objeto de tipo matrix
-    public List<Double> prediccion(double[] user_input)
-    {
-        //Convierte de arreglo a objeto para input
-        Matrix input = Matrix.convertir_Array_Matrix(user_input);
-        //Inicializa la capa hidden con las conexiones de input a hidden multiplicandola por los valores de input
-        // (valores de activacion de la primera capa)
-        Matrix hidden = Matrix.multiplicacion(weights_inputToHidden, input);
-        //Le suma al resultado de la multiplicacion los valores del bias de la capa oculta
-        //(En la primer corrida, tienen valores aleatorios)
-        hidden.suma(bias_hidden);
-        //Obtenemos los valores de activación para hidden a traves de la sigmoide
-        hidden.sigmoide();
-        //Inicializa la capa output con las conexiones de hidden a output multiplicandola por los valores de hidden
-        // (valores de activacion de la segunda capa)
-        Matrix output = Matrix.multiplicacion(weights_hiddenToOutput,hidden);
-        //Le suma al resultado de la multiplicacion los valores del bias de la capa output
-        output.suma(bias_output);
-        //Obtenemos los valores de activación para output a traves de la sigmoide
-        output.sigmoide();
-
-        return output.convertir_Matrix_Array();
-    }
-
     public void neuralNetworkTraining(double [] sample_input_x, double [] sample_target_y)
     {
         Matrix input = Matrix.convertir_Array_Matrix(sample_input_x);
@@ -85,13 +61,40 @@ public class NeuralNetwork {
 
     }
 
-    public void cycleTraining(double[][]dataset_x, double[][]dataset_y, int iterations)
+    public void cycleTraining(double[][]dataset_x, double[][]dataset_y, int iteration)
     {
-        for(int i=0;i<iterations;i++)
+        for(int i=0;i<iteration;i++)
         {
             int sampleN =  (int)(Math.random() * dataset_x.length );
             this.neuralNetworkTraining(dataset_x[sampleN], dataset_y[sampleN]);
         }
     }
+
+
+    //Toma la capa de neuronas de input y las convierte en un objeto de tipo matrix
+    public List<Double> prediccion(double[] user_input)
+    {
+        //Convierte de arreglo a objeto para input
+        Matrix input = Matrix.convertir_Array_Matrix(user_input);
+        //Inicializa la capa hidden con las conexiones de input a hidden multiplicandola por los valores de input
+        // (valores de activacion de la primera capa)
+        Matrix hidden = Matrix.multiplicacion(weights_inputToHidden, input);
+        //Le suma al resultado de la multiplicacion los valores del bias de la capa oculta
+        //(En la primer corrida, tienen valores aleatorios)
+        hidden.suma(bias_hidden);
+        //Obtenemos los valores de activación para hidden a traves de la sigmoide
+        hidden.sigmoide();
+        //Inicializa la capa output con las conexiones de hidden a output multiplicandola por los valores de hidden
+        // (valores de activacion de la segunda capa)
+        Matrix output = Matrix.multiplicacion(weights_hiddenToOutput,hidden);
+        //Le suma al resultado de la multiplicacion los valores del bias de la capa output
+        output.suma(bias_output);
+        //Obtenemos los valores de activación para output a traves de la sigmoide
+        output.sigmoide();
+
+        return output.convertir_Matrix_Array();
+    }
+
+
 
 }

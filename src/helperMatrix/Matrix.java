@@ -19,9 +19,9 @@ public class Matrix
             for(int j = 0; j< columnas; j++)
             {
                 //Se inicializa la matriz con valores aleatorios en -1 y 1
-                //data[i][j]=Math.random()*2-1;
+                data[i][j]=Math.random()*2-1;
                 //o no
-                data[i][j]=0;
+                //data[i][j]=0;
             }
         }
     }

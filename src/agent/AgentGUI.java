@@ -20,12 +20,12 @@ public class AgentGUI extends JFrame {
         valores = new JTextField(10);
         p.add(valores);
         getContentPane().add(p, BorderLayout.CENTER);
-        JButton addButton = new JButton("Calculate");
+        JButton addButton = new JButton("Traffic Signals");
         addButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try {
 
-                    myAgent.executeAgent(valores.getText());
+                    myAgent.executeAgentTraffic(valores.getText());
                     valores.setText("");
 
                 }
@@ -35,8 +35,25 @@ public class AgentGUI extends JFrame {
             }
         } );
 
+        JButton addButton1 = new JButton("Numbers");
+        addButton1.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+
+                    myAgent.executeAgentNumbers(valores.getText());
+                    valores.setText("");
+
+                }
+                catch (Exception e) {
+                    JOptionPane.showMessageDialog(AgentGUI.this, "Invalid values. "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } );
+
+
         p = new JPanel();
         p.add(addButton);
+        p.add(addButton1);
 
         getContentPane().add(p, BorderLayout.SOUTH);
 
